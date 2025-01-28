@@ -46,7 +46,7 @@ jobs:
           export CROSS_COMPILE="$GITHUB_WORKSPACE/workdir/gcc/bin/aarch64-linux-android-"
           cd $GITHUB_WORKSPACE/workdir/source
           export OPPO_TARGET_DEVICE="MSM_18011"
-          make O=out config
+          make O=out debug_dconfig
           make -j$(nproc --all) O=out
 
       - name: Check a kernel output files
