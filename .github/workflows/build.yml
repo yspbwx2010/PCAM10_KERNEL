@@ -47,7 +47,7 @@ jobs:
           cd $GITHUB_WORKSPACE/workdir/source
           export OPPO_TARGET_DEVICE="oppo6771_18011"
           make O=out oppo6771_18011_debug_defconfig
-          make -j$(nproc --all) O=out
+          make -j$(nproc --all) O=out 2>&1 | tee kernel.log
 
       - name: Check a kernel output files
         run: |
@@ -65,3 +65,20 @@ jobs:
         with:
           name: android_kernel_oppo_mt6771_18011_${{ env.BUILD_TIME }}_Image.gz-dtb
           path: workdir/source/out/arch/arm64/boot/Image.gz-dtb
+
+      - name: Check a log output files
+        run: |
+          cd $GITHUB_WORKSPACE/workdir/source
+          if [ -f kernel.log ]; then
+              echo "CHECK_FILE_IS_OK=true" >> $GITHUB_ENV
+          else
+              echo "Kernel output file is empty"
+              exit 1
+          fi
+
+      - name: Upload Kernel
+        if: env.CHECK_FILE_IS_OK == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: android_kernel_oppo_mt6771_18011_${{ env.BUILD_TIME }}_kernel.log
+          path: workdir/source/kernel.log
