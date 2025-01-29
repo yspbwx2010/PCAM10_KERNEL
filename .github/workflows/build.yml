@@ -45,7 +45,7 @@ jobs:
           export SUBARCH="arm64"
           export CROSS_COMPILE="$GITHUB_WORKSPACE/workdir/gcc/bin/aarch64-linux-android-"
           cd $GITHUB_WORKSPACE/workdir/source
-          export TARGET_PRODUCT="oppo6771_18011"
+          export TARGET_PRODUCT="oppo6771_18151"
           make O=out oppo6771_18011_debug_defconfig
           make -j$(nproc --all) O=out 2>&1 | tee kernel.log
 
