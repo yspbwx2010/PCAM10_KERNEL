@@ -1,4 +1,4 @@
-name: Only Build a9 Kernel
+name: Only Build 19350 Kernel
 on:
   workflow_call:
   workflow_dispatch:
